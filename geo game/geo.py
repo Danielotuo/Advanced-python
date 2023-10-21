@@ -1,4 +1,5 @@
 from random import randint
+import turtle
 
 
 class Point:
@@ -29,9 +30,40 @@ class Rectangle:
         return (self.point2.x - self.point1.x) * (self.point2.y - self.point1.y)
 
 
+# Define a class named Gui that inherits from Rectangle
+
+
+class Gui(Rectangle):
+    def draw(self, canvas):
+        # Draw the rectangle on the canvas using turtle graphics
+        canvas.penup()
+        canvas.goto(self.point1.x, self.point1.y)
+        canvas.pendown()
+        canvas.forward(self.point2.x - self.point1.x)
+        canvas.left(90)
+        canvas.forward(self.point2.y - self.point1.y)
+        canvas.left(90)
+        canvas.forward(self.point2.x - self.point1.x)
+        canvas.left(90)
+        canvas.forward(self.point2.y - self.point1.y)
+
+
+# Define a class named GuiPoint that inherits from Point
+class GuiPoint(Point):
+    def draw(self, canvas, size=5, color="blue"):
+        # Draw a point on the canvas using turtle graphics
+        canvas.penup()
+        canvas.goto(self.x, self.y)
+        canvas.pendown()
+        canvas.dot(size, color)
+
+
+54
+
+
 # Create a random rectangle with corner points
-rectangle = Rectangle(
-    Point(randint(0, 9), randint(0, 9)), Point(randint(10, 19), randint(10, 19))
+rectangle = Gui(
+    Point(randint(0, 400), randint(0, 100)), Point(randint(20, 100), randint(10, 400))
 )
 
 print(
@@ -46,9 +78,18 @@ print(
 )
 
 # Get the user's guessed point and area for the rectangle
-user_point = Point(float(input("Guess X: ")), float(input("Guess Y: ")))
+user_point = GuiPoint(float(input("Guess X: ")), float(input("Guess Y: ")))
 user_area = float(input("Guess area of the rectangle: "))
 
 print("Your point was inside rectangle: ", user_point.inside_rectangle(rectangle))
-
 print("Your area was of by: ", rectangle.area() - user_area)
+
+# Initialize a turtle graphics canvas
+myturtle = turtle.Turtle()
+
+# Draw the rectangle and user's point on the canvas
+rectangle.draw(canvas=myturtle)
+user_point.draw(canvas=myturtle)
+
+# Finish and display the turtle graphics
+turtle.done()
