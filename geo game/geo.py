@@ -50,7 +50,7 @@ class Gui(Rectangle):
 
 # Define a class named GuiPoint that inherits from Point
 class GuiPoint(Point):
-    def draw(self, canvas, size=5, color="blue"):
+    def draw(self, canvas, size=4, color="blue"):
         # Draw a point on the canvas using turtle graphics
         canvas.penup()
         canvas.goto(self.x, self.y)
@@ -58,12 +58,10 @@ class GuiPoint(Point):
         canvas.dot(size, color)
 
 
-54
-
-
 # Create a random rectangle with corner points
 rectangle = Gui(
-    Point(randint(0, 400), randint(0, 100)), Point(randint(20, 100), randint(10, 400))
+    Point(randint(0, 100), randint(0, 100)), Point(
+        randint(100, 400), randint(100, 400))
 )
 
 print(
@@ -81,7 +79,8 @@ print(
 user_point = GuiPoint(float(input("Guess X: ")), float(input("Guess Y: ")))
 user_area = float(input("Guess area of the rectangle: "))
 
-print("Your point was inside rectangle: ", user_point.inside_rectangle(rectangle))
+print("Your point was inside rectangle: ",
+      user_point.inside_rectangle(rectangle))
 print("Your area was of by: ", rectangle.area() - user_area)
 
 # Initialize a turtle graphics canvas
